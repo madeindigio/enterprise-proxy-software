@@ -213,7 +213,7 @@ interactive: true
 
 ```
 go mod tidy
-go build -o dist/enterprise-proxy-software src/main.go src/auth.go
+go build -o dist/enterprise-proxy-software src/*.go
 ```
 
 ### tests

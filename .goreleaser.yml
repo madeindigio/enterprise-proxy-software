@@ -1,3 +1,4 @@
+version: 2
 # .goreleaser.yml
 project_name: enterprise-proxy-software
 
@@ -6,29 +7,44 @@ before:
     - go mod tidy
 
 builds:
-  - env:
-      - CGO_ENABLED=0
+  - id: enterprise-proxy-software
+    main: ./src/main.go
+    binary: enterprise-proxy-software
     goos:
+      - darwin
       - linux
       - windows
-      - darwin
     goarch:
-      - amd64
-      - arm64
+      - "386"
+      - "amd64"
+      - "arm"
+      - "arm64"
+    goarm:
+      - "7"
     ldflags:
-      - -s -w
-      - -X main.Version={{.Version}}
-      - -X main.Commit={{.Commit}}
-      - -X main.Date={{.Date}}
-      - -X main.BuiltBy=goreleaser
+      - "-s"
+      - "-w"
+      - "-X github.com/madeindigio/enterprise-proxy-software/pkg/version.CommitHash={{.Commit}}"
+      - "-X github.com/madeindigio/enterprise-proxy-software/pkg/version.Version={{.Version}}"
+    env:
+      - CGO_ENABLED=0
+    ignore:
+      - goos: darwin
+        goarch: "386"
+      - goos: windows
+        goarch: "386"
+      - goos: windows
+        goarch: "arm"
+      - goos: windows
+        goarch: "arm64"
 
-dist: ./dist/outputs/dist
+dist: ./dist/release
 
 upx:
   - enabled: true
     # Filter by build ID(s) to compress. Leave empty to allow all builds.
     ids:
-      - remembrances-mcp
+      - enterprise-proxy-software
     # Only compress linux amd64/arm64 by default
     goos:
       - linux
@@ -38,19 +54,13 @@ upx:
     compress: '1'
     lzma: true
     brute: false
-
+    
 archives:
-  - format: tar.gz
-    name_template: >-
-      {{ .ProjectName }}_
-      {{- title .Os }}_
-      {{- if eq .Arch "amd64" }}x86_64
-      {{- else if eq .Arch "386" }}i386
-      {{- else }}{{ .Arch }}{{ end }}
-      {{- if .Arm }}v{{ .Arm }}{{ end }}
-    format_overrides:
-      - goos: windows
-        format: zip
+  - id: bin
+    formats: ['binary']
+  - id: tar
+    formats: ['tar.gz']
+
 
 changelog:
   sort: asc

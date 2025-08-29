@@ -1,4 +1,4 @@
-module enterprise-proxy-software
+module github.com/madeindigio/enterprise-proxy-software
 
 go 1.21
 

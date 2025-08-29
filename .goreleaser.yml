@@ -22,6 +22,23 @@ builds:
       - -X main.Date={{.Date}}
       - -X main.BuiltBy=goreleaser
 
+dist: ./dist/outputs/dist
+
+upx:
+  - enabled: true
+    # Filter by build ID(s) to compress. Leave empty to allow all builds.
+    ids:
+      - remembrances-mcp
+    # Only compress linux amd64/arm64 by default
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    compress: '1'
+    lzma: true
+    brute: false
+
 archives:
   - format: tar.gz
     name_template: >-
@@ -44,6 +61,6 @@ changelog:
 
 release:
   github:
-    owner: your-github-username
+    owner: madeindigio
     name: enterprise-proxy-software
   draft: true

@@ -4,6 +4,10 @@
 
 This is a Golang HTTP proxy server that requires Google OAuth2 authentication. The proxy intercepts requests and redirects unauthenticated users to Google for login.
 
+Always use Serena tools for editing or finding code in this project. Check Serena onboarding performed in the work session, and list and read memories before start the work for is we have previous knowledge about the task that you are working on.
+
+Search in serper web search or brave search if faults the first, for more info and fetch pages that you consider useful for the task, if needed. Also use Context7 for finding the API's use and how work the libraries to use.
+
 ## Key Components
 
 - `src/main.go`: Main server setup and proxy logic

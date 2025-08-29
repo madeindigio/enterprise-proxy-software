@@ -1,0 +1,54 @@
+{
+	"servers": {
+		"hyper-mcp": {
+			"type": "stdio",
+			"command": "hyper-mcp",
+			"args": [
+				"--config-file",
+				"/home/sevir/.config/hyper-mcp/kilo.json"
+			]
+		},
+		"mycommandmcp": {
+			"type": "stdio",
+			"command": "mycommandmcp",
+			"args": [
+				"--config",
+				"/home/sevir/.config/mc-mcp/optimized.yaml",
+				"--log-file",
+				"/www/MCP/MyCommandMCP/mycommandmcp/mcp.log"
+			]
+		},
+		"serena": {
+			"type": "stdio",
+			"command": "pkgx",
+			"args": [
+				"uvx",
+				"--from",
+				"git+https://github.com/oraios/serena",
+				"serena",
+				"start-mcp-server",
+				"--context",
+				"ide-assistant",
+				"--project",
+				"/www/Personal/enterprise-proxy-software"
+			]
+		},
+		"remembrances": {
+			"type": "stdio",
+			"command": "/www/MCP/remembrances-mcp/dist/remembrances-mcp",
+			"args": [
+				"--surrealdb-url",
+				"ws://localhost:8000",
+				"--ollama-url",
+				"http://localhost:11434",
+				"--ollama-model",
+				"nomic-embed-text:latest",
+				"--knowledge-base",
+				"/www/Personal/enterprise-proxy-software/.serena/memories",
+				"--surrealdb-start-cmd",
+				"surreal start --user root --pass root surrealkv:///www/Remembrances/programming"
+			]
+		}
+	},
+	"inputs": []
+}

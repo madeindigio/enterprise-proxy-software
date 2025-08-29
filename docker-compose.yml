@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  proxy:
+    build: .
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - SERVER_URL=${SERVER_URL:-http://localhost:8080}
+
+  mock-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.mock
+    ports:
+      - "9090:9090"
+      - "9443:9443"
+    restart: unless-stopped
